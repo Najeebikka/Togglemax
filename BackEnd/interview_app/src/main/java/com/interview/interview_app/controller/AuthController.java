@@ -1,34 +1,52 @@
-// package com.interview.interview_app.controller;
+package com.interview.interview_app.controller;
 
-// import org.springframework.http.ResponseEntity;
-// import org.springframework.web.bind.annotation.*;
-// import jakarta.servlet.http.HttpServletRequest;
-// import jakarta.servlet.http.HttpSession;
+import com.interview.interview_app.dto.LoginRequestDTO;
+import com.interview.interview_app.dto.RegisterRequestDTO;
+import com.interview.interview_app.dto.RegisterResponseDTO;
+import com.interview.interview_app.service.AuthService;
+import com.interview.interview_app.service.CustomUserDetailsService;
+import com.interview.interview_app.util.JwtUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
-// import java.security.Principal;
+import java.util.Map;
 
-// @RestController
-// @RequestMapping("/api")
-// @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
-// public class AuthController {
+@RestController
+@RequestMapping("/api/auth")
+@CrossOrigin(origins = "http://localhost:3000")
+public class AuthController {
 
-//     // Called after Basic Auth, mainly to confirm session is created
-//     @GetMapping("/login")
-//     public ResponseEntity<String> login(Principal principal) {
-//         if (principal != null) {
-//             return ResponseEntity.ok("Welcome, " + principal.getName());
-//         } else {
-//             return ResponseEntity.status(401).body("Unauthorized");
-//         }
-//     }
+    @Autowired private AuthService authService;
+    @Autowired private AuthenticationManager authenticationManager;
+    @Autowired private CustomUserDetailsService userDetailsService;
+    @Autowired private JwtUtil jwtUtil;
 
-//     // Session-based logout
-//     @PostMapping("/logout")
-//     public ResponseEntity<String> logout(HttpServletRequest request) {
-//         HttpSession session = request.getSession(false); // don't create
-//         if (session != null) {
-//             session.invalidate();
-//         }
-//         return ResponseEntity.ok("Logged out successfully");
-//     }
-// }
+    @PostMapping("/register")
+    public ResponseEntity<RegisterResponseDTO> register(
+            @Validated @RequestBody RegisterRequestDTO req
+    ) {
+        RegisterResponseDTO dto = authService.register(req);
+        return ResponseEntity.ok(dto);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequestDTO req) {
+        authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(req.getEmail(), req.getPassword())
+        );
+        UserDetails ud = userDetailsService.loadUserByUsername(req.getEmail());
+        String token = jwtUtil.generateToken(ud);
+        return ResponseEntity.ok(Map.of("token", token));
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout() {
+        // JWT is stateless: clients simply discard the token
+        return ResponseEntity.ok(Map.of("message", "Logged out"));
+    }
+}

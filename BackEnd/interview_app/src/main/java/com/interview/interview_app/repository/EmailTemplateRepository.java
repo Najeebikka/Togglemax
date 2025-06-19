@@ -6,8 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
 import java.util.Optional;
+import java.util.List;
 
 public interface EmailTemplateRepository extends JpaRepository<EmailTemplate, UUID> {
     boolean existsByTemplateName(String templateName);
-    Optional<EmailTemplate> findByCategory(Category category);
+    List<EmailTemplate> findByCategory(Category category);
+    // Optional<EmailTemplate> findByCategory(Category category);
 }

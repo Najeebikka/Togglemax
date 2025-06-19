@@ -9,7 +9,7 @@ export async function createInterviewAction(formData) {
   const scheduledDate = formData.get("scheduledDate");
   const subjectIds = formData.getAll("subjectIds");
 
-  const baseURL = process.env.NEXT_PUBLIC_API_URL || "http://backend:8080";
+  const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
   const payload = {
     interviewerId,

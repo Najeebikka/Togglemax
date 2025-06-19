@@ -1,7 +1,7 @@
 import DeleteEmailButton from './DeleteEmailButton';
 
 export default async function EmailTemplatePage({ params }) {
-  const { id } = params;
+  const { id } = await params;
   const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
   const res = await fetch(`${baseURL}/api/email-templates/${id}`);

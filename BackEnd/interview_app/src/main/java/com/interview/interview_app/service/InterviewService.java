@@ -49,17 +49,30 @@ public class InterviewService {
         }
 
         // ✅ Email Sending Logic (if needed)
-        EmailTemplate template = emailTemplateRepository.findByCategory(EmailTemplate.Category.INTERVIEW_INVITATION)
-                .orElseThrow(() -> new RuntimeException("Email template not found"));
+        List<EmailTemplate> templates = emailTemplateRepository.findByCategory(EmailTemplate.Category.INTERVIEW_INVITATION);
+        if (templates.isEmpty()) {
+            throw new RuntimeException("No template found");
+        }
+        EmailTemplate template = templates.get(0); // or handle more appropriately
 
-        String tokenUrl = "http://localhost:3000/task/" + interview.getToken();
+        // EmailTemplate template = emailTemplateRepository.findByCategory(EmailTemplate.Category.INTERVIEW_INVITATION)
+        //         .orElseThrow(() -> new RuntimeException("Email template not found"));
+
+        String token = interview.getToken();
+
+        String tokenUrl = "http://localhost:3000/task/" + token;
 
         String body = template.getEmailBody()
                 .replace("{{candidateName}}", candidate.getUser().getName())
                 .replace("{{jobTitle}}", job.getJobTitle())
                 .replace("{{scheduledDate}}", dto.getScheduledDate().toString())
-                .replace("{{token}}", tokenUrl);
+                .replace("{{link}}", tokenUrl)
+                .replace("{{token}}", token)
+                .replace("\n", "<br>");
+        
+        System.out.println(body);
 
+        // Uncomment the line below to send the email
         // emailService.sendEmail(candidate.getUser().getEmail(), template.getSubject(), body);
 
         return InterviewMapper.toDTO(saved);

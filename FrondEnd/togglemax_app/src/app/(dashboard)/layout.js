@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import Nav from "./layout_components/nav"
 import Sidebar from "./layout_components/sidebar";
+import useAuth from "@/hooks/useAuth";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,6 +22,8 @@ const geistMono = Geist_Mono({
 // };
 
 export default function RootLayout({ children }) {
+  useAuth();
+
   return (
     <div className="flex absolute top-0 left-0 right-0">
         

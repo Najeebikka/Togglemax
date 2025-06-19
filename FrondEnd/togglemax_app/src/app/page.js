@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import LoginPopup from "./loginpopup";
 
 export default function WelcomePage() {
   const router = useRouter();
@@ -18,9 +19,9 @@ export default function WelcomePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center">
-      <Link href="/login" className="absolute top-4 right-4 text-blue-600 hover:underline">
-        Login
-      </Link>
+      <div href="/login" className="absolute top-4 right-4 text-blue-600 hover:underline">
+        <LoginPopup />
+      </div>
       <div className="bg-white shadow-xl rounded-2xl p-8 max-w-md w-full text-center">
         <h1 className="text-3xl font-bold text-blue-700 mb-4">🎤 Welcome to Your Interview</h1>
         <p className="text-gray-600 mb-6">

@@ -7,6 +7,17 @@ export default function JobManagingPage() {
     const [jobs, setJobs] = useState([]);
 
     const fetchJobs = async () => {
+
+         // Uncomment this line if you need to use token for authentication
+         
+        // const token = localStorage.getItem("token");
+
+        // const res = await fetch("http://localhost:8080/api/jobs", {
+        //     headers: {
+        //     Authorization: `Bearer ${token}`,
+        //     },
+        // });
+
         try {
             const res = await fetch("http://localhost:8080/api/jobs");
             const data = await res.json();
