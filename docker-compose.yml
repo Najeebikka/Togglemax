@@ -1,0 +1,95 @@
+services:
+  db:
+    image: postgres:15
+    container_name: interview_db
+    environment:
+      POSTGRES_DB: interview_app
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    build: ./BackEnd/interview_app
+    container_name: interview_backend
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./BackEnd/interview_app:/app       # 👈 Mount source code
+      - ~/.m2:/root/.m2                     # 👈 Use host Maven cache (for faster rebuilds)
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/interview_app
+      SPRING_DATASOURCE_USERNAME: myuser
+      SPRING_DATASOURCE_PASSWORD: mypassword
+      SPRING_MAIL_USERNAME: sampledemk@gmail.com
+      SPRING_MAIL_PASSWORD: fifmhrpftrkesskx
+    command: ./mvnw spring-boot:run         # 👈 Re-run source, not JAR
+    depends_on:
+      - db
+
+  frontend:
+    build: ./FrondEnd/togglemax_app
+    container_name: interview_frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./FrondEnd/togglemax_app:/app  
+      - /app/node_modules   
+    environment:
+      - NEXT_PUBLIC_API_URL=http://backend:8080
+    command: npm run dev 
+
+volumes:
+  pgdata:
+
+
+# version: "3.9"
+# services:
+#   db:
+#     image: postgres:15
+#     container_name: postgres_db
+#     restart: always
+#     environment:
+#       POSTGRES_USER: postgres
+#       POSTGRES_PASSWORD: postgres
+#       POSTGRES_DB: interview_db
+#     ports:
+#       - "5432:5432"
+#     volumes:
+#       - db-data:/var/lib/postgresql/data
+#     networks:
+#       - fullstack-net
+
+#   backend:
+#     build: ./backend
+#     container_name: backend_spring
+#     restart: always
+#     depends_on:
+#       - db
+#     environment:
+#       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/interview_db
+#       SPRING_DATASOURCE_USERNAME: postgres
+#       SPRING_DATASOURCE_PASSWORD: postgres
+#     ports:
+#       - "8080:8080"
+#     networks:
+#       - fullstack-net
+
+#   frontend:
+#     build: ./frontend
+#     container_name: nextjs_frontend
+#     restart: always
+#     ports:
+#       - "3000:3000"
+#     depends_on:
+#       - backend
+#     networks:
+#       - fullstack-net
+
+# volumes:
+#   db-data:
+
+# networks:
+#   fullstack-net:

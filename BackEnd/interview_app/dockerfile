@@ -1,0 +1,23 @@
+FROM eclipse-temurin:21-jdk
+
+WORKDIR /app
+
+# Copy the project files
+COPY . .
+
+# Grant mvnw permission (important in Unix-based systems)
+RUN chmod +x mvnw
+
+# Expose backend port
+EXPOSE 8080
+
+# Install dependencies only (compile optional)
+CMD ["./mvnw", "spring-boot:run"]
+
+
+
+# FROM openjdk:21-jdk-slim
+# WORKDIR /app
+# COPY . .
+# RUN ./mvnw package -DskipTests
+# CMD ["java", "-jar", "target/interview_app-0.0.1-SNAPSHOT.jar"]
