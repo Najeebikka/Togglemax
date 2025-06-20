@@ -1,11 +1,12 @@
 "use client";
 
 export default function DeleteEmailButton({ id }) {
+  const baseURL = process.env.NEXT_PUBLIC_API_URL;
   const handleDelete = async () => {
     if (!confirm("Are you sure you want to delete this email template?")) return;
 
     try {
-      const res = await fetch(`http://localhost:8080/api/email-templates/${id}`, {
+      const res = await fetch(`${baseURL}/api/email-templates/${id}`, {
         method: "DELETE",
       });
 

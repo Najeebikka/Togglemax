@@ -5,11 +5,12 @@ import { QuickActionBox } from "../dashboard/page";
 import AddSubjectPopup from "./popup";
 
 export default function QuestionBankPage() {
+  const baseURL = process.env.NEXT_PUBLIC_API_URL;
   const [subjects, setSubjects] = useState([]);
 
   const fetchSubjects = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/subjects");
+      const response = await fetch(`${baseURL}/api/subjects`);
       const data = await response.json();
       setSubjects(data);
     } catch (error) {
@@ -26,7 +27,7 @@ export default function QuestionBankPage() {
     if (!confirmDelete) return;
 
     try {
-      const res = await fetch(`http://localhost:8080/api/subjects/${id}`, {
+      const res = await fetch(`${baseURL}/api/subjects/${id}`, {
         method: "DELETE",
       });
 

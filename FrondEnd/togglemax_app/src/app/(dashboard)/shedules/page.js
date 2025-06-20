@@ -4,13 +4,14 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 export default function ShedulesPage() {
+  const baseURL = process.env.NEXT_PUBLIC_API_URL;
   const [jobs, setJobs] = useState([]);
   const [editingJobId, setEditingJobId] = useState(null);
   const [selectedStatus, setSelectedStatus] = useState("OPEN");
 
   const fetchJobs = async () => {
     try {
-      const res = await fetch("http://localhost:8080/api/jobs");
+      const res = await fetch(`${baseURL}/api/jobs`);
       const data = await res.json();
       setJobs(data);
     } catch (err) {
@@ -22,7 +23,7 @@ export default function ShedulesPage() {
     const updatedJob = { ...job, status: selectedStatus };
 
     try {
-        const res = await fetch(`http://localhost:8080/api/jobs/${job.id}`, {
+        const res = await fetch(`${baseURL}/api/jobs/${job.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedJob),

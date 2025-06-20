@@ -4,6 +4,7 @@ import { useState } from "react";
 
 export default function EmailTemplatePopup({ refetchTemplates }) {
   const [showForm, setShowForm] = useState(false);
+  const baseURL = process.env.NEXT_PUBLIC_API_URL;
   const [form, setForm] = useState({
     templateName: "",
     category: "INTERVIEW_INVITATION",
@@ -19,7 +20,7 @@ export default function EmailTemplatePopup({ refetchTemplates }) {
     e.preventDefault();
     try {
         console.log("start")
-      const res = await fetch("http://localhost:8080/api/email-templates", {
+      const res = await fetch(`${baseURL}/api/email-templates`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),

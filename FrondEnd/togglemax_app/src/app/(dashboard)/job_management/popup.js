@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 export default function JobModal({ refetchJobs }) {
+    const baseURL = process.env.NEXT_PUBLIC_API_URL;
     const [showForm, setShowForm] = useState(false);
     const [form, setForm] = useState({
         jobTitle: "",
@@ -26,7 +27,7 @@ export default function JobModal({ refetchJobs }) {
         };
 
         try {
-            const res = await fetch("http://localhost:8080/api/jobs", {
+            const res = await fetch(`${baseURL}/api/jobs`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),

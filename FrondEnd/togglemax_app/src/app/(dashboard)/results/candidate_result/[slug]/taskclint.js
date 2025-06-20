@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 
 export default function TaskClient({ interviewId }) {
   const videoRef = useRef(null);
-  const baseUrl = "http://localhost:8080/";
+  const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
   const [name, setName] = useState("");
   const [jobtitle, setJobtitle] = useState("");
@@ -14,7 +14,7 @@ export default function TaskClient({ interviewId }) {
   useEffect(() => {
     async function fetchInterviewData() {
       try {
-        const res = await fetch(`http://localhost:8080/api/interview-results/interview/${interviewId}`);
+        const res = await fetch(`${baseURL}/api/interview-results/interview/${interviewId}`);
         if (!res.ok) throw new Error("Failed to fetch interview data");
 
         const dataArray = await res.json();

@@ -7,6 +7,8 @@ export default function AddCandidatesPage() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
+  const baseURL = process.env.NEXT_PUBLIC_API_URL;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -16,7 +18,7 @@ export default function AddCandidatesPage() {
     };
 
     try {
-      const res = await fetch("http://localhost:8080/api/users", {
+      const res = await fetch(`${baseURL}/api/users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

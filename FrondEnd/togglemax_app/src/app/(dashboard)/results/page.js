@@ -4,12 +4,13 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Results() {
+  const baseURL = process.env.NEXT_PUBLIC_API_URL;
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/interview-results`)
+    fetch(`${baseURL}/api/interview-results`)
       .then((res) => res.json())
       .then((data) => {
         setResults(data);

@@ -4,6 +4,8 @@ import { useState } from "react";
 
 export default function CandidatesData({ candidates = [] }) {
 
+  const baseURL = process.env.NEXT_PUBLIC_API_URL;
+
     const [data, setData] = useState(candidates);
 
     async function handleDelete(interviewid) {
@@ -11,7 +13,7 @@ export default function CandidatesData({ candidates = [] }) {
         if (!confirmed) return;
 
         try {
-            const res = await fetch(`http://localhost:8080/api/interviews/${interviewid}`, {
+            const res = await fetch(`${baseURL}/api/interviews/${interviewid}`, {
                 method: "DELETE",
             });
             if (res.ok) {

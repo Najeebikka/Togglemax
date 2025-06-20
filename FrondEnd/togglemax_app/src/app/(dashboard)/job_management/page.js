@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import JobModal from "./popup";
 
 export default function JobManagingPage() {
+    const baseURL = process.env.NEXT_PUBLIC_API_URL;
     const [jobs, setJobs] = useState([]);
 
     const fetchJobs = async () => {
@@ -19,7 +20,7 @@ export default function JobManagingPage() {
         // });
 
         try {
-            const res = await fetch("http://localhost:8080/api/jobs");
+            const res = await fetch(`${baseURL}/api/jobs`);
             const data = await res.json();
             setJobs(data);
         } catch (err) {
@@ -33,7 +34,7 @@ export default function JobManagingPage() {
 
     const handleDelete = async (id) => {
         try {
-            const res = await fetch(`http://localhost:8080/api/jobs/${id}`, {
+            const res = await fetch(`${baseURL}/api/jobs/${id}`, {
                 method: "DELETE",
             });
             if (res.ok) {

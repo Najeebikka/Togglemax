@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 
 export default function AddQuestionPopup({ refetchQuestions, subjectName }) {
+  const baseURL = process.env.NEXT_PUBLIC_API_URL;
   const [show, setShow] = useState(false);
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
@@ -11,7 +12,7 @@ export default function AddQuestionPopup({ refetchQuestions, subjectName }) {
   useEffect(() => {
     const fetchSubjectId = async () => {
       try {
-        const res = await fetch("http://localhost:8080/api/subjects");
+        const res = await fetch(`${baseURL}/api/subjects`);
         if (res.ok) {
           const data = await res.json();
           const matchedSubject = data.find(
@@ -43,7 +44,7 @@ export default function AddQuestionPopup({ refetchQuestions, subjectName }) {
       return;
     }
 
-    const res = await fetch("http://localhost:8080/api/questions", {
+    const res = await fetch(`${baseURL}/api/questions`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ question, answer, subjectId }),

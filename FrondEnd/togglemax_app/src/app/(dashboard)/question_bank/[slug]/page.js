@@ -5,13 +5,14 @@ import AddQuestionPopup from "./popup";
 import { useParams } from "next/navigation";
 
 export default function Page() {
+  const baseURL = process.env.NEXT_PUBLIC_API_URL;
   const { slug } = useParams();
   const decodedSlug = decodeURIComponent(slug);
   const [questions, setQuestions] = useState([]);
 
   const fetchQuestions = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/api/questions/by-subject-name?subjectName=${encodeURIComponent(decodedSlug)}`);
+      const response = await fetch(`${baseURL}/api/questions/by-subject-name?subjectName=${encodeURIComponent(decodedSlug)}`);
       const data = await response.json();
       setQuestions(data);
     } catch (error) {
@@ -29,7 +30,7 @@ export default function Page() {
     if (!confirmed) return;
 
     try {
-      const res = await fetch(`http://localhost:8080/api/questions/${id}`, {
+      const res = await fetch(`${baseURL}/api/questions/${id}`, {
         method: "DELETE",
       });
       if (res.ok) {

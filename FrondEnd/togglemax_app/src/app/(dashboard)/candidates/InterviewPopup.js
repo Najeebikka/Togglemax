@@ -2,7 +2,7 @@ import InterviewClientPopup from "./popup";
 
 export default async function InterviewPopup() {
   const interviewerId = "b2b74349-23de-4e76-b0d4-83fc55504eaf";
-  const baseURL = process.env.NEXT_PUBLIC_API_URL || "http://backend:8080";
+  const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
   const [candidatesRes, jobsRes, subjectsRes] = await Promise.all([
     fetch(`${baseURL}/api/candidates`),

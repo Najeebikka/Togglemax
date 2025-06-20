@@ -7,11 +7,12 @@ import EmailTemplatePopup from "./popup";
 export default function EmailPage() {
   const [emailTemplates, setEmailTemplates] = useState([]);
   const [loading, setLoading] = useState(true);
+  const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
   const fetchEmailTemplates = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:8080/api/email-templates", { cache: "no-store" });
+      const res = await fetch(`${baseURL}/api/email-templates`, { cache: "no-store" });
       const data = await res.json();
       setEmailTemplates(data);
     } catch (err) {

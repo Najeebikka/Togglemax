@@ -33,7 +33,7 @@ services:
     ports:
       - "80:3000"
     environment:
-      - NEXT_PUBLIC_API_URL=http://backend:8080
+      - NEXT_PUBLIC_API_URL=http://13.60.35.109:8080
     depends_on:
       - backend
 
