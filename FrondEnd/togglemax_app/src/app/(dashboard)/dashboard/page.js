@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import CandidatesData from "../candidates/candidate_show";
 import Candidates from "../candidates_data";
 import AddQuestionPopup from "../question_bank/popup";

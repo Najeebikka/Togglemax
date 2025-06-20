@@ -1,8 +1,10 @@
+export const dynamic = "force-dynamic";
+
 import CandidatesData from "../candidate_show";
 import Candidates from "../../candidates_data.js";
 import InterviewPopup from "../InterviewPopup";
-  const baseURL = process.env.NEXT_PUBLIC_API_URL || "http://backend:8080";
 
+  const baseURL = process.env.NEXT_PUBLIC_API_URL || "http://backend:8080";
 
 export default async function RejectedCandidatePage() {
 
