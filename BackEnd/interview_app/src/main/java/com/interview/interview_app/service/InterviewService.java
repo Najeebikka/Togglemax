@@ -54,10 +54,10 @@ public class InterviewService {
         if (templates.isEmpty()) {
             throw new RuntimeException("No template found");
         }
-        EmailTemplate template = templates.get(0); // or handle more appropriately
+        EmailTemplate template = templates.stream()
+            .findFirst()
+            .orElseThrow(() -> new RuntimeException("Email template not found"));
 
-        EmailTemplate template = emailTemplateRepository.findByCategory(EmailTemplate.Category.INTERVIEW_INVITATION)
-                .orElseThrow(() -> new RuntimeException("Email template not found"));
 
         String token = interview.getToken();
 
@@ -74,7 +74,7 @@ public class InterviewService {
         System.out.println(body);
 
         // Uncomment the line below to send the email
-        // emailService.sendEmail(candidate.getUser().getEmail(), template.getSubject(), body);
+        emailService.sendEmail(candidate.getUser().getEmail(), template.getSubject(), body);
 
         return InterviewMapper.toDTO(saved);
     }

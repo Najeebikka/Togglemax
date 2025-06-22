@@ -37,7 +37,7 @@ services:
         NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
     container_name: interview_frontend
     env_file:
-      - ./FrondEnd/togglemax_app/.env
+      - ./.env
     environment:
       INTERNAL_API_URL: ${INTERNAL_API_URL}
     ports:
