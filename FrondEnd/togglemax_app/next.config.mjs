@@ -1,12 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-devIndicators: false,
-experimental: {
+  output: 'standalone',
+  devIndicators: false,
+  experimental: {
     serverActions: {
-      bodySizeLimit: '100mb'  // or '200mb' if needed
+      bodySizeLimit: '100mb'
     }
   }
 };
-
 
 export default nextConfig;

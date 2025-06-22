@@ -7,7 +7,7 @@ export default function AddCandidatesPage() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
-  const baseURL = process.env.NEXT_PUBLIC_API_URL;
+  const baseURL = process.env.INTERNAL_API_URL || process.env.NEXT_PUBLIC_API_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();

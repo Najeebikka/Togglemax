@@ -5,7 +5,7 @@ import AddQuestionPopup from "./popup";
 import { useParams } from "next/navigation";
 
 export default function Page() {
-  const baseURL = process.env.NEXT_PUBLIC_API_URL;
+  const baseURL = process.env.INTERNAL_API_URL || process.env.NEXT_PUBLIC_API_URL;
   const { slug } = useParams();
   const decodedSlug = decodeURIComponent(slug);
   const [questions, setQuestions] = useState([]);

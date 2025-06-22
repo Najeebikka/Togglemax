@@ -11,4 +11,5 @@ public class InterviewDetailsDTO {
     private String candidateName;
     private String jobTitle;
     private List<String> questionTitles;
+    private Boolean tokenUsed;
 }

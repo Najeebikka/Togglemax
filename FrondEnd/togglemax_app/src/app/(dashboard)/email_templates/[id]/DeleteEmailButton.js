@@ -1,7 +1,7 @@
 "use client";
 
 export default function DeleteEmailButton({ id }) {
-  const baseURL = process.env.NEXT_PUBLIC_API_URL;
+  const baseURL = process.env.INTERNAL_API_URL || process.env.NEXT_PUBLIC_API_URL;
   const handleDelete = async () => {
     if (!confirm("Are you sure you want to delete this email template?")) return;
 

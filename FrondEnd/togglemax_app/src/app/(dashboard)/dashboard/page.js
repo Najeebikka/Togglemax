@@ -9,7 +9,7 @@ import EmailTemplatePopup from "../email_templates/popup";
 export default async function DashboardPage() {
   
   let Candidates = [];
-  const baseURL = process.env.NEXT_PUBLIC_API_URL;
+  const baseURL = process.env.INTERNAL_API_URL;
 
 
     try {

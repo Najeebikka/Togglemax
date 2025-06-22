@@ -15,7 +15,7 @@ import java.util.UUID;
 import java.util.List;
 import java.nio.file.Paths;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost")
 @RestController
 @RequestMapping("/api/interview-results")
 @RequiredArgsConstructor

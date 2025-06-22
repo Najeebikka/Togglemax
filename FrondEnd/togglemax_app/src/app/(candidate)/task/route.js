@@ -5,7 +5,7 @@ export async function POST(req) {
     const formData = await req.formData();
     const file = formData.get("file");
     const interviewId = formData.get("interviewId");
-    const baseURL = process.env.NEXT_PUBLIC_API_URL;
+    const baseURL = process.env.INTERNAL_API_URL;
 
     if (!file || typeof file === "string") {
       return NextResponse.json({ error: "Invalid file" }, { status: 400 });

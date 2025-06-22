@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 
 export default function TaskClient({ interviewId }) {
   const videoRef = useRef(null);
-  const baseURL = process.env.NEXT_PUBLIC_API_URL;
+  const baseURL = process.env.INTERNAL_API_URL || process.env.NEXT_PUBLIC_API_URL;
 
   const [name, setName] = useState("");
   const [jobtitle, setJobtitle] = useState("");
@@ -46,7 +46,7 @@ export default function TaskClient({ interviewId }) {
         {videoUrl ? (
           <video
             ref={videoRef}
-            src={videoUrl ? `${baseUrl}${videoUrl}` : ""}
+            src={videoUrl ? `${baseURL}/${videoUrl}` : ""}
             controls
             className="w-full h-full object-cover rounded-lg"
           />
@@ -56,7 +56,7 @@ export default function TaskClient({ interviewId }) {
           </div>
         )}
       </div>
-
+      
       <div className="rounded-lg w-full h-64 flex-5 shadow-md overflow-y-scroll bg-white md:h-[500px] p-4">
         <h1>Welcome, {name || "Loading..."}</h1>
         <h3>Job title: {jobtitle || "Loading..."}</h3>

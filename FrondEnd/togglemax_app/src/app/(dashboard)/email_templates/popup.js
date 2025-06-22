@@ -4,7 +4,7 @@ import { useState } from "react";
 
 export default function EmailTemplatePopup({ refetchTemplates }) {
   const [showForm, setShowForm] = useState(false);
-  const baseURL = process.env.NEXT_PUBLIC_API_URL;
+  const baseURL = process.env.INTERNAL_API_URL || process.env.NEXT_PUBLIC_API_URL;
   const [form, setForm] = useState({
     templateName: "",
     category: "INTERVIEW_INVITATION",

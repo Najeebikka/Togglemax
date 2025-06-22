@@ -85,6 +85,7 @@ public class InterviewQuestionServiceImpl implements InterviewQuestionService {
         response.setJobTitle(job.getJobTitle());
         response.setInterviewId(interview.getId());
         response.setQuestionTitles(questionTitles);
+        response.setTokenUsed(interview.getTokenUsed());
 
         return response;
     }

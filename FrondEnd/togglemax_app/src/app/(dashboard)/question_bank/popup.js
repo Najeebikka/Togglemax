@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 export default function AddSubjectPopup({ refetchSubjects }) {
-  const baseURL = process.env.NEXT_PUBLIC_API_URL;
+  const baseURL = process.env.INTERNAL_API_URL || process.env.NEXT_PUBLIC_API_URL;
   const [show, setShow] = useState(false);
   const [name, setName] = useState("");
 
@@ -19,7 +19,7 @@ export default function AddSubjectPopup({ refetchSubjects }) {
     if (res.ok) {
       setName("");
       setShow(false);
-      refetchSubjects();
+      refetchSubjects?.();
     } else {
       alert("Failed to add subject");
     }

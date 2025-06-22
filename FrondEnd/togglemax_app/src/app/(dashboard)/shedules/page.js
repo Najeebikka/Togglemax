@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 export default function ShedulesPage() {
-  const baseURL = process.env.NEXT_PUBLIC_API_URL;
+  const baseURL = process.env.INTERNAL_API_URL || process.env.NEXT_PUBLIC_API_URL;
   const [jobs, setJobs] = useState([]);
   const [editingJobId, setEditingJobId] = useState(null);
   const [selectedStatus, setSelectedStatus] = useState("OPEN");

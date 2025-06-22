@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 export default function JobModal({ refetchJobs }) {
-    const baseURL = process.env.NEXT_PUBLIC_API_URL;
+  const baseURL = process.env.INTERNAL_API_URL || process.env.NEXT_PUBLIC_API_URL;
     const [showForm, setShowForm] = useState(false);
     const [form, setForm] = useState({
         jobTitle: "",

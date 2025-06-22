@@ -18,6 +18,7 @@ public class InterviewMapper {
         interview.setInterviewStatus(dto.getInterviewStatus());
         interview.setShortlistedStatus(dto.getShortlistedStatus());
         interview.setToken(dto.getToken());
+        interview.setTokenUsed(dto.getTokenUsed());
         return interview;
     }
 
@@ -31,6 +32,7 @@ public class InterviewMapper {
         dto.setInterviewStatus(interview.getInterviewStatus());
         dto.setShortlistedStatus(interview.getShortlistedStatus());
         dto.setToken(interview.getToken());
+        dto.setTokenUsed(interview.getTokenUsed());
         return dto;
     }
 }

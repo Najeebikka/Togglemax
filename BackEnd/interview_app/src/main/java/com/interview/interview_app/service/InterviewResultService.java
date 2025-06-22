@@ -30,8 +30,19 @@ public class InterviewResultService {
         Interview interview = interviewRepository.findById(dto.getInterviewId())
                 .orElseThrow(() -> new NoSuchElementException("Interview not found with ID: " + dto.getInterviewId()));
 
+        if (interview.getTokenUsed()) {
+            throw new IllegalStateException("This interview has already been submitted. Token is expired.");
+        }
+
+        // Save the result
         InterviewResult result = InterviewResultMapper.toEntity(dto, interview);
-        return InterviewResultMapper.toDTO(interviewResultRepository.save(result));
+        InterviewResult savedResult = interviewResultRepository.save(result);
+
+        // Expire the token
+        interview.setTokenUsed(true);
+        interviewRepository.save(interview);
+
+        return InterviewResultMapper.toDTO(savedResult);
     }
 
     public InterviewResultDTO getResultById(UUID id) {

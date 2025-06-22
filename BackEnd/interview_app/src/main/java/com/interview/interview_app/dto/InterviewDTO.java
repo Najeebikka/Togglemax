@@ -19,4 +19,5 @@ public class InterviewDTO {
     private ShortlistStatus shortlistedStatus;
     private String token;
     private List<UUID> subjectIds;
+    private Boolean tokenUsed;
 }

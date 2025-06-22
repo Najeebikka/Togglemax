@@ -33,6 +33,7 @@ public class InterviewService {
 
         Interview interview = InterviewMapper.toEntity(dto, candidate, job, interviewer);
         interview.setToken(UUID.randomUUID().toString());
+        interview.setTokenUsed(false);
         Interview saved = interviewRepository.save(interview);
 
         // ✅ Save subjects into InterviewQuestion

@@ -1,7 +1,7 @@
 import CandidatesData from "../../candidates/candidate_show";
 
 export default async function ResultsOfJob({ params }) {
-  const baseURL = process.env.NEXT_PUBLIC_API_URL;
+  const baseURL = process.env.INTERNAL_API_URL;
   const { id } = await params;
 
   const jobRes = await fetch(`${baseURL}/api/jobs/${id}`);

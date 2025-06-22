@@ -1,23 +1,24 @@
+export const dynamic = 'force-dynamic';
+
 import TaskClient from "./taskClint";
+import { redirect } from 'next/navigation';
 
 export default async function TaskPage({ params }) {
   const { slug } = await params;
-  const baseURL = process.env.NEXT_PUBLIC_API_URL;
+  const baseURL = process.env.INTERNAL_API_URL;
 
   let interviewData = null;
 
-  try {
-    const response = await fetch(`${baseURL}/api/interview-questions/interview-token/${slug}`, {
-      cache: "no-store",
-    });
 
-    if (!response.ok) throw new Error("Interview not found");
+  const response = await fetch(`${baseURL}/api/interview-questions/interview-token/${slug}`, {
+    cache: "no-store",
+  });
 
-    interviewData = await response.json();
-  } catch (error) {
-    console.error("Failed to fetch interview questions:", error);
-    interviewData = null;
-  }
+  if (!response.ok) redirect('/?not=true');
+
+  interviewData = await response.json();
+
+  if (interviewData.tokenUsed) redirect('/?expired=true');
 
   // Fallbacks if API fails
   const name = interviewData?.candidateName || "Candidate";

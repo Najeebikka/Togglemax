@@ -38,6 +38,9 @@ public class Interview {
     @Column(unique = true, nullable = false)
     private String token;
 
+    @Column(nullable = false)
+    private Boolean tokenUsed = false;
+
     public enum InterviewStatus {
         NOT_SCHEDULED, SCHEDULED, COMPLETED
     }

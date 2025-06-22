@@ -4,7 +4,7 @@ import CandidatesData from "../candidate_show";
 import Candidates from "../../candidates_data.js";
 import InterviewPopup from "../InterviewPopup";
 
-  const baseURL = process.env.NEXT_PUBLIC_API_URL;
+  const baseURL = process.env.INTERNAL_API_URL;
 
 export default async function PendingCandidatePage() {
 

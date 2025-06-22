@@ -2,12 +2,12 @@ import DeleteEmailButton from './DeleteEmailButton';
 
 export default async function EmailTemplatePage({ params }) {
   const { id } = await params;
-  const baseURL = process.env.NEXT_PUBLIC_API_URL;
+  const baseURL = process.env.INTERNAL_API_URL;
 
   const res = await fetch(`${baseURL}/api/email-templates/${id}`);
 
   if (!res.ok) {
-    return <div className="p-4 text-red-500">Email template not found.</div>;
+    return <div className="p-4 text-red-500">Email template not found.{baseURL}</div>;
   }
 
   const email = await res.json();
