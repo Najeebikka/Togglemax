@@ -56,8 +56,8 @@ public class InterviewService {
         }
         EmailTemplate template = templates.get(0); // or handle more appropriately
 
-        // EmailTemplate template = emailTemplateRepository.findByCategory(EmailTemplate.Category.INTERVIEW_INVITATION)
-        //         .orElseThrow(() -> new RuntimeException("Email template not found"));
+        EmailTemplate template = emailTemplateRepository.findByCategory(EmailTemplate.Category.INTERVIEW_INVITATION)
+                .orElseThrow(() -> new RuntimeException("Email template not found"));
 
         String token = interview.getToken();
 
