@@ -21,6 +21,15 @@ export default function TaskClient({ name, jobtitle, totalquestions, time = 3, q
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploadError, setUploadError] = useState(null);
   const [uploadSuccess, setUploadSuccess] = useState(false);
+  const [permissionDenied, setPermissionDenied] = useState(false);
+
+  useEffect(() => {
+    navigator.permissions?.query({ name: "camera" }).then((res) => {
+      if (res.state === "denied") {
+        setPermissionDenied(true);
+      }
+    });
+  }, []);
 
   useEffect(() => {
     async function startCamera() {
@@ -32,6 +41,7 @@ export default function TaskClient({ name, jobtitle, totalquestions, time = 3, q
         }
       } catch (err) {
         console.error("Failed to access camera/mic", err);
+        setPermissionDenied(true);
       }
     }
 
@@ -57,6 +67,10 @@ export default function TaskClient({ name, jobtitle, totalquestions, time = 3, q
   };
 
   const handleStartInterview = () => {
+    if (permissionDenied) {
+    alert("Camera/Mic permission is required to start the interview.");
+    return;
+  }
     setStarted(true);
     handleStartRecording();
     startTimer(time * 60); // total seconds
@@ -153,6 +167,12 @@ export default function TaskClient({ name, jobtitle, totalquestions, time = 3, q
         {recording && (
           <div className="absolute top-4 right-4 bg-black bg-opacity-60 text-white px-3 py-1 rounded text-sm">
             ⏳ {formatTime(secondsLeft)}
+          </div>
+        )}
+        {permissionDenied && (
+          <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-70 text-white text-center p-4 rounded-lg">
+            Camera/Microphone access is required to start the interview.<br />
+            Please allow access and refresh the page.
           </div>
         )}
       </div>
