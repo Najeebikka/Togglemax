@@ -61,7 +61,7 @@ public class InterviewService {
 
         String token = interview.getToken();
 
-        String tokenUrl = "http://13.60.35.109/task/" + token;
+        String tokenUrl = "http://51.20.8.147/task/" + token;
 
         String body = template.getEmailBody()
                 .replace("{{candidateName}}", candidate.getUser().getName())
